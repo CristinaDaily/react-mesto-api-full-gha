@@ -1,0 +1,12 @@
+.profile__container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile__container:hover .profile__overlay {
+  display: block;
+}
+
+.profile__container:hover .profile__edit-icon {
+  display: block;
+}

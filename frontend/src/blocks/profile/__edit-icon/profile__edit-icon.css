@@ -1,0 +1,13 @@
+.profile__edit-icon {
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  top: 47px;
+  left: 47px;
+  background-position: center;
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  padding: 0;
+  display: none;
+}

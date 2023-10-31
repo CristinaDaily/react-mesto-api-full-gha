@@ -1,0 +1,15 @@
+.login__button {
+  margin-top: 186px;
+  height: 50px;
+  width: 100%;
+  color: rgba(0, 0, 0, 1);
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 22px;
+  border-color: rgba(255, 255, 255, 1);
+  border-radius: 2px;
+  border: 0;
+
+  padding: 0;
+  cursor: pointer;
+}
