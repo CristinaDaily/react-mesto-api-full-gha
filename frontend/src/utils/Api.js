@@ -127,7 +127,9 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'http://localhost:3000',
+  //baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.mesto.nomoredomainsrocks.ru',
+  
   /* headers: {
     authorization: 'b334b420-c534-4216-b0c2-8d90ef156992',
     'Content-Type': 'application/json',
