@@ -30,15 +30,13 @@ export const login = (password, email) => {
 };
 
 export const getContent = (token) => {
-  // token was an argument add to brackets aboove
-  //const token = localStorage.getItem('jwt');
 
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     credentials: "include",
     headers: {
       'Content-Type': 'application/json',
-      //Authorization: `Bearer ${token}`,
+      
     },
   }).then(getResponseData);
 };
