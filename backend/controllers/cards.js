@@ -41,10 +41,7 @@ export const deleteCardById = (req, res, next) => {
       res.send(deletedCard);
     })
     .catch(next);
-  /*
-      if (error.name === 'CastError') {
-        return res.status(BAD_REQUEST).send({ message: 'Передан не валидный id' });
-    } */
+
 };
 
 const updateCardLikes = (req, res, updateAction, next) => {

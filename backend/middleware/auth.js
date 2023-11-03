@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 export default function auth(req, res, next) {
   let payload;
@@ -11,7 +12,7 @@ export default function auth(req, res, next) {
     }
     //const valideToken = token.replace('Bearer ', '');
     //payload = jwt.verify(valideToken, 'dev_secret');
-    payload = jwt.verify(token, 'dev_secret');
+    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
   } catch (error) {
     if (error.message === 'NotAutanticate') {
       return res.status(401).send({ message: 'Необходима авторизация', error });
