@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 export default function auth(req, res, next) {

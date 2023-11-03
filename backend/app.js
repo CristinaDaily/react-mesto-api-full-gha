@@ -6,16 +6,13 @@ import router from './routes/index.js';
 import errorHandler from './middleware/errorHandler.js';
 import { requestLogger, errorLogger } from './middleware/logger.js';
 import cors from 'cors';
-import 'dotenv/config'
-
-const { NODE_ENV, JWT_SECRET } = process.env;
+import 'dotenv/config';
 
 const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 
 const app = express();
 
-
-app.use(cors({ origin:['http://localhost:3001','https://mestoproject.nomoredomainsrocks.ru'], credentials: true, maxAge:60 }));
+app.use(cors({ origin: ['http://localhost:3001', 'https://mestoproject.nomoredomainsrocks.ru'], credentials: true, maxAge: 60 }));
 app.use(json());
 app.use(cookieParser());
 app.use(requestLogger);
@@ -26,7 +23,6 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-
 
 app.use(router);
 
