@@ -5,7 +5,6 @@ import ForbiddenError from '../errors/forbiddenError.js';
 
 export const getCards = (req, res, next) => {
   Card.find({})
-    //.populate(['owner'])
     .then((cards) => res.send(cards))
     .catch(next);
 };
@@ -47,19 +46,15 @@ const updateCardLikes = (req, res, updateAction, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     updateAction,
-    { new: true })
-    //.populate(['owner'])
-  .then((card) => {
-    if (!card) {
-      throw new NotFoundError('Передан несуществующий _id карточки');
-    }
-    res.send(card);
-  })
+    { new: true },
+  )
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError('Передан несуществующий _id карточки');
+      }
+      res.send(card);
+    })
     .catch(next);
-  /*
-      if (error.name === 'CastError') {
-        return res.status(BAD_REQUEST).send({ message: 'Передан не валидный id' });
-      } */
 };
 
 export const likeCard = (req, res, next) => {

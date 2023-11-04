@@ -79,11 +79,10 @@ export const login = async (req, res, next) => {
   try {
     const user = await User.findUserByCredentials(email, password);
     const token = generateTtoken({ _id: user._id });
-     res.cookie('jwt', token, {
+    res.cookie('jwt', token, {
       maxAge: 3600000, httpOnly: true, sameSite: true,
     });
-    return res.send({ email: user.email, _id: user._id }); 
-    //res.send({token: token});
+    return res.send({ email: user.email, _id: user._id });
   } catch (error) {
     if (error.name === 'ValidationError') {
       return next(new BadRequestError('Переданы некорректные данные'));
