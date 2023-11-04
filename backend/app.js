@@ -14,7 +14,7 @@ const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process
 
 const app = express();
 
-app.use(cors({ origin: ['http://localhost:3000', 'https://mestoproject.nomoredomainsrocks.ru'], credentials: true, maxAge: 60 }));
+app.use(cors({ origin: ['http://localhost:3001', 'https://mestoproject.nomoredomainsrocks.ru'], credentials: true, maxAge: 60 }));
 app.use(json());
 app.use(cookieParser());
 app.use(requestLogger);
