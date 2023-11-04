@@ -41,7 +41,6 @@ export const deleteCardById = (req, res, next) => {
       res.send(deletedCard);
     })
     .catch(next);
-
 };
 
 const updateCardLikes = (req, res, updateAction, next) => {

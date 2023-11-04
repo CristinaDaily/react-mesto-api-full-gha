@@ -1,27 +1,21 @@
 import jwt from 'jsonwebtoken';
+import AuthenticationError from '../errors/authenticationError.js'
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 export default function auth(req, res, next) {
   let payload;
   try {
-    const token = req.cookies.jwt; //const token = req.headers.authorization;
+    const token = req.cookies.jwt;
 
     if (!token) {
-      throw new Error('NotAutanticate');
+      throw new AuthenticationError('Необходима авторизация');
     }
-    //const valideToken = token.replace('Bearer ', '');
-    //payload = jwt.verify(valideToken, 'dev_secret');
     payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
   } catch (error) {
-    if (error.message === 'NotAutanticate') {
-      return res.status(401).send({ message: 'Необходима авторизация', error });
-    }
-    if (error.name === 'JsonWebTokenError') {
-      return res.status(401).send({ message: 'С токеом что-то не так', error });
-    }
-    return res.status(500).send({ message: 'На сервере произошла ошибка', error });
+    return next(error);
   }
+
   req.user = payload;
   return next();
 }

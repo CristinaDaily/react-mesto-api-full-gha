@@ -2,10 +2,12 @@ import express, { json } from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import { errors } from 'celebrate';
+import cors from 'cors';
 import router from './routes/index.js';
 import errorHandler from './middleware/errorHandler.js';
 import { requestLogger, errorLogger } from './middleware/logger.js';
-import cors from 'cors';
+import NotFoundError from './errors/notFoundErr.js'
+
 import 'dotenv/config';
 
 const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
@@ -26,8 +28,9 @@ app.get('/crash-test', () => {
 
 app.use(router);
 
-app.use((req, res) => {
-  res.status(404).json({ message: 'Маршрут не найден' });
+app.use((req, res, next) => {
+  const error = new NotFoundError('Маршрут не найден');
+  next(error);
 });
 
 app.use(errorLogger);

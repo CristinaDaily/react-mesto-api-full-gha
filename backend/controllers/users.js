@@ -24,7 +24,6 @@ export const getUserByID = (req, res, next) => {
       res.send(user);
     })
     .catch(next);
-  
 };
 
 export const createUser = (req, res, next) => {
@@ -41,11 +40,11 @@ export const createUser = (req, res, next) => {
     .catch((error) => {
       if (error.name === 'ValidationError') {
         next(new BadRequestError('Переданы некорректные данные при создании пользователя'));
-      }
-      if (error.code === MONGO_DUPLCATE_ERROR_CODE) {
+      } else if (error.code === MONGO_DUPLCATE_ERROR_CODE) {
         next(new ConflictError('Такой пользователь уже существует'));
+      } else {
+        next(error);
       }
-      next(error);
     });
 };
 
@@ -61,7 +60,7 @@ const updateProfile = (req, res, updateOption, next) => {
       if (error.name === 'ValidationError') {
         next(new BadRequestError('Переданы некорректные данные при создании пользователя'));
       }
-      next(error);
+      return next(error);
     });
 };
 

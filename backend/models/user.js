@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import isEmail from 'validator/lib/isEmail.js';
 import bcrypt from 'bcryptjs';
+import AuthenticationError from '../errors/authenticationError.js'
 
 const userSchema = new mongoose.Schema(
   {
@@ -57,24 +58,18 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(email,
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        throw new Error('NotAutanticate');
+        throw new AuthenticationError('Необходима авторизация');
       }
 
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            throw new Error('NotAutanticate');
+            throw new AuthenticationError('Необходима авторизация');
           }
 
           return user;
         });
     });
 };
-/*
-userSchema.path('avatar').validate((v) => {
-  const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,3}(:\d{1,5})?([/?#]\S*)?$/;
-  console.log(urlRegex.test(v));
-  return urlRegex.test(v);
-}); */
 
 export default mongoose.model('user', userSchema);

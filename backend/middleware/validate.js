@@ -14,26 +14,26 @@ const validateUser = celebrate({
 
 const validateProfile = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
+    name: Joi.string().min(2).max(30).required(),
+    about: Joi.string().min(2).max(30).required(),
   }),
 });
 
 const validateAvatar = celebrate({
   [Segments.BODY]: Joi.object().keys({
-    avatar: Joi.string().regex(avatarRegex),
+    avatar: Joi.string().regex(avatarRegex).required(),
   }),
 });
 
 const validateObjId = celebrate({
   [Segments.PARAMS]: Joi.object().keys({
-    userId: Joi.string().alphanum().length(24),
+    userId: Joi.string().hex().length(24).required(),
   }),
 });
 
 const validateCardId = celebrate({
   [Segments.PARAMS]: Joi.object().keys({
-    cardId: Joi.string().alphanum().length(24),
+    cardId: Joi.string().hex().length(24).required(),
   }),
 });
 
