@@ -87,9 +87,6 @@ export const login = async (req, res, next) => {
     if (error.name === 'ValidationError') {
       return next(new BadRequestError('Переданы некорректные данные'));
     }
-    if (error.message === 'NotAutanticate') {
-      return next(new AuthenticationError('Неправильные почта или пароль'));
-    }
     return next(error);
   }
 };
