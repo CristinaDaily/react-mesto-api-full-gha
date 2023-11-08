@@ -19,13 +19,6 @@ app.use(json());
 app.use(cookieParser());
 app.use(requestLogger);
 
-// позже удалить
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-
 app.use(router);
 
 app.use((req, res, next) => {
