@@ -14,7 +14,21 @@ const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process
 
 const app = express();
 
-app.use(cors({ origin: ['http://localhost:3001', 'https://mestoproject.nomoredomainsrocks.ru'], credentials: true, maxAge: 60 }));
+const options = {
+  origin: [
+    'http://localhost:3001',
+    'https://mestoproject.nomoredomainsrocks.ru',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
+
+app.use(cors(options));
+
+// app.use(cors({ origin: ['http://localhost:3001', 'https://mestoproject.nomoredomainsrocks.ru'], credentials: true, maxAge: 60 }));
 app.use(json());
 app.use(cookieParser());
 app.use(requestLogger);

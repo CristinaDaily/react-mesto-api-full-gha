@@ -183,7 +183,7 @@ function App() {
         console.log(`Error during token check:${error} `);
         throw error;
       });
-  }
+  
 
   React.useEffect(() => {
     //tockenCeck
@@ -201,7 +201,7 @@ function App() {
           token.removeToken();
         });
     }
-  }, []);
+  }, []); 
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -210,18 +210,19 @@ function App() {
   }, [loggedIn]);
 
   function handleLogin({ password, email }) {
+    
     return auth
       .login(password, email)
       .then((res) => {
+        console.log(res)
+
         if(res) {
           token.setToken(res._id)
-        
-        /*if (res.token) {
+        /*
+        if (res.token) {
           token.setToken(res.token);*/ //тут изменения для куков
           return res;
-        } else {
-          return;
-        }
+        }  
       })
       .then((res) => {
         if (res._id) {
